@@ -16,7 +16,6 @@ from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.chat_models import ChatOpenAI
 import os
 import sys
-from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 
 
@@ -74,7 +73,8 @@ app = Flask(__name__)
 
 document_directory = "./docs"
 
-openai_api_key = os.getenv("OPENAI_API_KEY")
+os.environ["OPENAI_API_KEY"] = "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"
+
 # Load and split documents
 def load_and_split_documents(directory):
     document = []
@@ -129,6 +129,7 @@ def question_answer():
 
 
     vectordb_huggingface, vectordb_openai = initialize_embeddings_and_vectordb()
+
 
     if embedding_method == 'huggingface':
         vectordb = vectordb_huggingface
